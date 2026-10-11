@@ -10,7 +10,7 @@ namespace AgenticAIPractice
         public static async Task Run()
         {
             var apiKey = Environment.GetEnvironmentVariable("ApiKey")
-        ?? throw new InvalidOperationException("OPENAI_API_KEY environment variable is not set.");
+                ?? throw new InvalidOperationException("OPENAI_API_KEY environment variable is not set.");
 
             // Define the lools
             var tools = new List<AITool>

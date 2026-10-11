@@ -1,3 +1,5 @@
 ﻿using AgenticAIPractice;
 
-await HelloAgent.Run();
+//await HelloAgent.Run();
+
+await MockInterviewAgent.Run();
