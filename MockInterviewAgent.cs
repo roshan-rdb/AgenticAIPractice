@@ -16,7 +16,12 @@ namespace AgenticAIPractice
                 ?? throw new InvalidOperationException("OPENAI_API_KEY environment variable is not set.");
             var modelId = "gpt-5.4-mini";
 
-            var tools = new List<AITool>() { AIFunctionFactory.Create(EmailTool.SendEmail) };
+
+            // Define the lools
+            var tools = new List<AITool>
+            {
+                AIFunctionFactory.Create(EmailTool.SendEmail),
+            };
 
             IChatClient chatClient = new ChatClient(modelId, apiKey).AsIChatClient();
 
@@ -25,13 +30,15 @@ namespace AgenticAIPractice
                             .CreateAIAgent(
                 name: "MockInterviewAgent",
                 instructions: """
-                    You are a mock interview agent that helps users prepare for job interviews.
+                    You are a mock interview agent that helps users prepare for job interviews with access to tools..
+                    BEHAVIOR:
                     - As you are mock interviewing the user, give only relevant questions based on the user's background and the job role.
                     - For other questions denied, politely inform the user that you will not ask those questions as they are not relevant to the user's background and the job role.    
                     - Ask only 5 relevant questions based on the user's background and the job role.
                     - Be professional, encouraging, and constructive in your feedback.
+                    
                     IMPORTANT:
-                    - For semding email, ALWAYS use the email tool
+                    - For semding email, ALWAYS use the email tool if have email address in user's input. Do not send email directly from the agent. Use the email tool to send email.
                     """,
                    tools: tools
             );
